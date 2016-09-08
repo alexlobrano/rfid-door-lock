@@ -1,0 +1,16 @@
+#!/bin/bash
+
+sudo ifdown --force wlan0
+echo "Shutting down wlan0..."
+sleep 5
+
+lsusb -d 7392:7811 > /dev/null
+
+if [ $? != 0 ]
+then
+	echo "Device not found. Rebooting in 5 seconds..."
+	sleep 5
+	sudo reboot
+else
+	$(lsusb -d 7392:7811 | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }' | xargs -I {} echo "sudo /home/pi/usbreset {}")
+fi

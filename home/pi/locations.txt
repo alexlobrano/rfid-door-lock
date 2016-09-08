@@ -1,0 +1,7 @@
+Locations of files:
+
+/usr/local/bin: huskylauncher.sh, wifirebooter.sh
+
+/home/pi: huskycard, rebootwifi, usbreset, usbreset.c
+
+crontab.txt file is copied from crontab for pi user
