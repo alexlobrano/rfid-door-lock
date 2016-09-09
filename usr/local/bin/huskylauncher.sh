@@ -9,4 +9,4 @@ then
 	exit 1
 fi
 echo "Program not running. Launching..."
-/usr/bin/gnome-terminal -e "/home/pi/huskycard"
+/usr/bin/gnome-terminal -e "/home/pi/huskycard.py"
