@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 import MySQLdb, argparse, string, time, datetime
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(7,GPIO.OUT)
+GPIO.setup(12,GPIO.OUT)
+GPIO.output(7,False)
+GPIO.output(12,True)
 
 #query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked)" \
 #	"VALUES (%s, %s, %s, %s, %s)"
@@ -42,6 +49,8 @@ while(True):
 			attempt_name = curs.fetchone()[0]
 			if(permission == 'resident'): 
 				print "Resident access\nDoor unlocked\n"
+				GPIO.output(7,True)
+				GPIO.output(12,False)
 				query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
 				args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 1)
 				curs.execute(query, args)
@@ -57,17 +66,23 @@ while(True):
 				current_time = datetime.datetime.now().time()
 				if(time_s < current_time < time_e):
 					print "Brother and guest access allowed at this time\nDoor unlocked\n"
+					GPIO.output(7,True)
+                                	GPIO.output(12,False)
 					query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
 					args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 1)
 					curs.execute(query, args)
 				else:
 					print "Non-resident access not allowed at this time\nDock locked\n"
+					GPIO.output(7,False)
+                               		GPIO.output(12,True)
 					query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
 					args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 0)
 					curs.execute(query, args)
 
 		else:
 			print "Invalid ID\nDoor locked\n"
+			GPIO.output(7,False)
+			GPIO.output(12,True)
 			query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"			
 			args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, 'Unknown', 0)
 			curs.execute(query, args)
