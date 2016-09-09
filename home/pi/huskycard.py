@@ -60,24 +60,31 @@ while(True):
 				args = (key)
 				curs.execute(query, args)
 				time_s, time_e = curs.fetchone()
-				#check if time_s or time_e are empty, throw error if so
-				time_s = datetime.datetime.strptime(time_s, '%H:%M:%S').time()
-				time_e = datetime.datetime.strptime(time_e, '%H:%M:%S').time()
-				current_time = datetime.datetime.now().time()
-				if(time_s < current_time < time_e):
-					print "Brother and guest access allowed at this time\nDoor unlocked\n"
-					GPIO.output(7,True)
-                                	GPIO.output(12,False)
-					query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
-					args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 1)
-					curs.execute(query, args)
-				else:
-					print "Non-resident access not allowed at this time\nDock locked\n"
+				if(not time_s or not time_e):
+					print "Invalid time entries for this ID\nDoor locked\n"
 					GPIO.output(7,False)
-                               		GPIO.output(12,True)
-					query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
-					args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 0)
-					curs.execute(query, args)
+					GPIO.output(12,True)
+		                        query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
+                		        args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, -1)
+		                        curs.execute(query, args)
+				else:
+					time_s = datetime.datetime.strptime(time_s, '%H:%M:%S').time()
+					time_e = datetime.datetime.strptime(time_e, '%H:%M:%S').time()
+					current_time = datetime.datetime.now().time()
+					if(time_s < current_time < time_e):
+						print "Brother and guest access allowed at this time\nDoor unlocked\n"
+						GPIO.output(7,True)
+	                                	GPIO.output(12,False)
+						query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
+						args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 1)
+						curs.execute(query, args)
+					else:
+						print "Non-resident access not allowed at this time\nDock locked\n"
+						GPIO.output(7,False)
+	                               		GPIO.output(12,True)
+						query = "INSERT INTO attempt_log(tdate, ttime, id, name, door_unlocked) VALUES (%s, %s, %s, %s, %s)"
+						args = (time.strftime("%Y-%m-%d"), datetime.datetime.now().time(), key, attempt_name, 0)
+						curs.execute(query, args)
 
 		else:
 			print "Invalid ID\nDoor locked\n"
