@@ -48,9 +48,11 @@ while (inp_role !='send'):
             # Grab the response, compare, and send to debugging spew
             len = radio.getDynamicPayloadSize()
             receive_payload = radio.read(len)
-
-            # Spew it
-            print 'got response size=', len, ' value="', receive_payload, '"'
+	    if(receive_payload != send_payload):
+		print "error"
+	    else:
+           	 # Spew it
+           	 print 'got response size=', len, ' value="', receive_payload, '"'
 
         time.sleep(0.1)
 
