@@ -16,6 +16,7 @@ radio.begin()
 radio.enableDynamicPayloads()
 radio.setRetries(15,15)
 radio.setPALevel(RF24_PA_HIGH)
+radio.setDataRate(RF24_250KBPS)
 radio.openWritingPipe(pipes[0])
 radio.openReadingPipe(1,pipes[1])
 radio.printDetails()
@@ -49,7 +50,7 @@ while (inp_role !='send'):
             len = radio.getDynamicPayloadSize()
             receive_payload = radio.read(len)
 	    if(receive_payload != send_payload):
-		print "error"
+		print 'error, received back value="', receive_payload, '"'
 	    else:
            	 # Spew it
            	 print 'got response size=', len, ' value="', receive_payload, '"'
