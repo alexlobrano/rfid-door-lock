@@ -51,6 +51,7 @@ while (inp_role !='send'):
             receive_payload = radio.read(len)
 	    if(receive_payload != send_payload):
 		print 'error, received back value="', receive_payload, '"'
+		print "error"
 	    else:
            	 # Spew it
            	 print 'got response size=', len, ' value="', receive_payload, '"'

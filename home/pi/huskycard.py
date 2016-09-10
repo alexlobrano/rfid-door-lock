@@ -14,6 +14,7 @@ GPIO.output(12,True)
 radio = RF24(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);
 pipes = [0xEEFDFDFDECAB,0xEEFDFDF0DFCD]
 max_payload_size = 4
+inp_role = 'none'
 send_payload = 'open'
 millis = lambda: int(round(time.time() * 1000))
 
@@ -74,6 +75,7 @@ def sendOpen(id, name, usergroup):
 		receive_payload = radio.read(len)
 		if(receive_payload != send_payload):	
 			print 'Error, received bad ack value="', receive_payload, '"\n'
+			print "Error, bad ack from arduino\n"
 			insertAttempt(id, name, 6)
 		else:
 			print "Unlock successful\n"
@@ -120,11 +122,13 @@ while(True):
 					current_time = datetime.datetime.now().time()
 					if(time_s < current_time < time_e):
 						print "Access allowed for user at this time\nDoor unlocked"
+						print "Non-resident access allowed at this time\nDoor unlocked"
 						GPIO.output(7,True)
 	                                	GPIO.output(12,False)
 						sendOpen(key, attempt_name, 'guest')
 					else:
 						print "Access not allowed for user at this time\nDock locked"
+						print "Non-resident access not allowed at this time\nDock locked"
 						GPIO.output(7,False)
 	                               		GPIO.output(12,True)
 						insertAttempt(key, attempt_name, 2)
