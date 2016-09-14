@@ -112,7 +112,7 @@ while(True):
 				curs.execute(query, args)
 				time_s, time_e = curs.fetchone()
 				if(not time_s or not time_e):
-					print "Invalid time entries for this ID\nDoor locked"
+					print "Invalid time entries for this ID\nDoor locked\n"
 					GPIO.output(7,False)
 					GPIO.output(12,True)
 					insertAttempt(key, attempt_name, 3)
@@ -122,13 +122,11 @@ while(True):
 					current_time = datetime.datetime.now().time()
 					if(time_s < current_time < time_e):
 						print "Access allowed for user at this time\nDoor unlocked"
-						print "Non-resident access allowed at this time\nDoor unlocked"
 						GPIO.output(7,True)
 	                                	GPIO.output(12,False)
 						sendOpen(key, attempt_name, 'guest')
 					else:
-						print "Access not allowed for user at this time\nDock locked"
-						print "Non-resident access not allowed at this time\nDock locked"
+						print "Access not allowed for user at this time\nDock locked\n"
 						GPIO.output(7,False)
 	                               		GPIO.output(12,True)
 						insertAttempt(key, attempt_name, 2)
