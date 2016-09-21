@@ -2,10 +2,10 @@
 <html>
 <body>
 
-Which group would you like this user to join?
+Which user group would you like to delete?
 
-<form action="add_user_data.php" method="post">
-User Group: <select name="user_group">
+<form action="submit_delete_user_group.php" method="post">
+User: <select name="user_group">
 	<?php
 	$servername = "localhost";
 	$username = "alex";
@@ -20,12 +20,14 @@ User Group: <select name="user_group">
 
 	$sql = mysqli_query($conn, "SELECT DISTINCT user_group FROM users");
 	while ($row = $sql->fetch_assoc()){
+		if($row['user_group'] != 'custom'){
 			echo "<option value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
+		}
 	}
 	?>
 	</select>
 <br><br>
-<input type="submit" value="Submit">
+<input type="submit" value="Delete user group">
 </form>
 
 </body>

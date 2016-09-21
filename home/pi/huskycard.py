@@ -10,7 +10,7 @@ GPIO.setup(12,GPIO.OUT)
 GPIO.output(7,False)
 GPIO.output(12,True)
 
-# Setup for GPIO 22 CE and CE0 CSN for RPi B+ with SPI Speed @ 8Mhz
+# Setup for GPIO22 (GPIO_GEN3, pin 15) CE and GPIO08 (SPI_CE0_N, pin 24) CSN for RPi B+ with SPI Speed @ 8Mhz
 radio = RF24(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);
 pipes = [0xEEFDFDFDECAB,0xEEFDFDF0DFCD]
 max_payload_size = 4

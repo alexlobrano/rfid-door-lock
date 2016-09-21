@@ -2,10 +2,10 @@
 <html>
 <body>
 
-Which user would you like to edit?
+Which group would you like this user to join?
 
-<form action="edit_user_data.php" method="post">
-User: <select name="name">
+<form action="add_user_recent_data.php" method="post">
+User Group: <select name="user_group">
 	<?php
 	$servername = "localhost";
 	$username = "alex";
@@ -18,16 +18,14 @@ User: <select name="name">
 		die("Connection failed: " . $conn->connect_error);
 	}
 
-	$sql = mysqli_query($conn, "SELECT * FROM users");
+	$sql = mysqli_query($conn, "SELECT DISTINCT user_group FROM users");
 	while ($row = $sql->fetch_assoc()){
-		if($row['name'] != $row['user_group']) {
-			echo "<option value=" . $row['name'] . ">" . $row['name'] . "</option>";
-		}
+			echo "<option value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
 	}
 	?>
 	</select>
 <br><br>
-<input type="submit" value="Edit user">
+<input type="submit" value="Submit">
 </form>
 
 </body>

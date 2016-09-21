@@ -76,12 +76,27 @@ else {
 	$sunday_e = $_POST['sunday_e'];
 }
 
-$sql = "UPDATE users SET name='$name', user_group='$user_group', monday_s='$monday_s', monday_e='$monday_e', tuesday_s='$tuesday_s', tuesday_e='$tuesday_e', wednesday_s='$wednesday_s', wednesday_e='$wednesday_e', thursday_s='$thursday_s', thursday_e='$thursday_e', friday_s='$friday_s', friday_e='$friday_e', saturday_s='$saturday_s', saturday_e='$saturday_e', sunday_s='$sunday_s', sunday_e='$sunday_e' WHERE id='$id'";
+$sql = "SELECT id FROM users WHERE id='$id'";
+$result = $conn->query($sql);
 
-if($conn->query($sql) === TRUE) {
-	echo "User edited successfully";
-} else {
-	echo "Error: " . $conn->error;
+if ($result->num_rows > 0) {
+	echo "Error: this ID already exists";
+} 
+else {
+	$sql = "INSERT INTO users (id, name, user_group, monday_s, monday_e, tuesday_s, tuesday_e, wednesday_s, wednesday_e, thursday_s, thursday_e, friday_s, friday_e, saturday_s, saturday_e, sunday_s, sunday_e) VALUES ('$id', '$name', '$user_group', '$monday_s', '$monday_e', '$tuesday_s', '$tuesday_e', '$wednesday_s', '$wednesday_e', '$thursday_s', '$thursday_e', '$friday_s', '$friday_e', '$saturday_s', '$saturday_e', '$sunday_s', '$sunday_e')";
+	if($conn->query($sql) === TRUE) {
+		echo "User added successfully";
+		echo nl2br ("\n");
+	} else {
+		echo "Error: " . $conn->error;
+	}
+}
+
+$sql = "UPDATE attempt_log SET name='$name' WHERE id='$id'";
+
+if($conn->query($sql) === TRUE) {}
+else {
+	echo "Error updating attempt logs for new user.";
 }
 
 $conn->close();

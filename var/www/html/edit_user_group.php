@@ -20,12 +20,14 @@ User: <select name="user_group">
 
 	$sql = mysqli_query($conn, "SELECT DISTINCT user_group FROM users");
 	while ($row = $sql->fetch_assoc()){
-		echo "<option value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
+		if($row['user_group'] != 'custom') {
+			echo "<option value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
+		}
 	}
 	?>
 	</select>
 <br><br>
-<input type="submit" value="Submit user group">
+<input type="submit" value="Edit user group">
 </form>
 
 </body>

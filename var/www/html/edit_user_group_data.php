@@ -29,10 +29,10 @@ $saturday_e = "";
 $sunday_s = "";
 $sunday_e = "";
 
-$sql = "SELECT * FROM users WHERE user_group='$user_group'";
+$sql = "SELECT * FROM users WHERE name='$user_group'";
 $result = $conn->query($sql);
 
-echo "Showing current information in database for ";
+echo "Showing current information in database for user group ";
 echo $user_group;
 echo nl2br ("\n");
 echo "Edit information then click the submit button";
@@ -66,41 +66,63 @@ $conn->close();
 <input type="hidden" name="user_group" value="<?php echo $user_group;?>"
 Times allowed entry to Vancouver (note: enter as HH:MM:SS using 24 hour time):
 <br><br>
+
 Monday start time: <input type="text" name="monday_s" value="<?php echo $monday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Monday end time: <input type="text" name="monday_e" value="<?php echo $monday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Tuesday start time: <input type="text" name="tuesday_s" value="<?php echo $tuesday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Tuesday end time: <input type="text" name="tuesday_e" value="<?php echo $tuesday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Wednesday start time: <input type="text" name="wednesday_s" value="<?php echo $wednesday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Wednesday end time: <input type="text" name="wednesday_e" value="<?php echo $wednesday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Thursday start time: <input type="text" name="thursday_s" value="<?php echo $thursday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Thursday end time: <input type="text" name="thursday_e" value="<?php echo $thursday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Friday start time: <input type="text" name="friday_s" value="<?php echo $friday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Friday end time: <input type="text" name="friday_e" value="<?php echo $friday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Saturday start time: <input type="text" name="saturday_s" value="<?php echo $saturday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Saturday end time: <input type="text" name="saturday_e" value="<?php echo $saturday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 Sunday start time: <input type="text" name="sunday_s" value="<?php echo $sunday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
+<br>
+
 Sunday end time: <input type="text" name="sunday_e" value="<?php echo $sunday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
+
 <input type="submit" value="Submit edited information">
 </form>
 

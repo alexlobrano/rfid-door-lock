@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <body>
 
@@ -13,9 +14,9 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-$name = $_POST['name'];
 $id = "";
-$user_group = "";
+$name = "";
+$user_group = $_POST['user_group'];
 $monday_s = "";
 $monday_e = "";
 $tuesday_s = "";
@@ -31,72 +32,59 @@ $saturday_e = "";
 $sunday_s = "";
 $sunday_e = "";
 
-$sql = "SELECT * FROM users WHERE name='$name'";
-$result = $conn->query($sql);
+if($user_group != "custom")
+{
+	$sql = "SELECT * FROM users WHERE name='$user_group'";
+	$result = $conn->query($sql);
 
-echo "Showing current information in database for ";
-echo $name;
-echo nl2br ("\n");
-echo "Edit information then click the submit button";
-echo nl2br ("\n\n");
-echo "note: if you want to edit the hours, you must change the user group to 'custom' first, submit the change, then come back to this screen to edit hours";
-echo nl2br ("\n\n");
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$monday_s = $row["monday_s"];
+			$monday_e = $row["monday_e"];
+			$tuesday_s = $row["tuesday_s"];
+			$tuesday_e = $row["tuesday_e"];
+			$wednesday_s = $row["wednesday_s"];
+			$wednesday_e = $row["wednesday_e"];
+			$thursday_s = $row["thursday_s"];
+			$thursday_e = $row["thursday_e"];
+			$friday_s = $row["friday_s"];
+			$friday_e = $row["friday_e"];
+			$saturday_s = $row["saturday_s"];
+			$saturday_e = $row["saturday_e"];
+			$sunday_s = $row["sunday_s"];
+			$sunday_e = $row["sunday_e"];
+		}
+	}
+} 
+
+$sql = "SELECT * FROM attempt_log WHERE ttime=(SELECT MAX(ttime) FROM attempt_log WHERE tdate=(SELECT MAX(tdate) FROM attempt_log))";
+$result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
 		$id = $row["id"];
-		$user_group = $row["user_group"];
-		$monday_s = $row["monday_s"];
-		$monday_e = $row["monday_e"];
-		$tuesday_s = $row["tuesday_s"];
-		$tuesday_e = $row["tuesday_e"];
-		$wednesday_s = $row["wednesday_s"];
-		$wednesday_e = $row["wednesday_e"];
-		$thursday_s = $row["thursday_s"];
-		$thursday_e = $row["thursday_e"];
-		$friday_s = $row["friday_s"];
-		$friday_e = $row["friday_e"];
-		$saturday_s = $row["saturday_s"];
-		$saturday_e = $row["saturday_e"];
-		$sunday_s = $row["sunday_s"];
-		$sunday_e = $row["sunday_e"];
 	}
-} else {
-	echo "0 results";
+}
+
+$sql = "SELECT id FROM users WHERE id='$id'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+	echo "This ID already exists for a user. You cannot use this ID! Proceeding will be unsuccessful and will give you an error.";
+	echo nl2br("\n\n");
 }
 
 $conn->close();
 ?>
 
-<form action="submit_edit_user.php" method="post">
-ID: <?php echo $id;?><br> 
-<input type="hidden" name="id" value="<?php echo $id;?>">
-Name: <input type="text" name="name" value="<?php echo $name;?>" pattern="[^\s]*" required><br>
-User Group: 
-	<select name="user_group">
-	<?php
-	$servername = "localhost";
-	$username = "alex";
-	$password = "password";
-	$dbname = "door_db";
-	
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+Enter a name for the new user (note: names must be in firstname_lastname format):<br><br>
 
-	$sql = mysqli_query($conn, "SELECT DISTINCT user_group FROM users");
-	while ($row = $sql->fetch_assoc()){
-		if($row['user_group'] != $user_group) {
-			echo "<option value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
-		}
-		else {
-			echo "<option selected value=" . $row['user_group'] . ">" . $row['user_group'] . "</option>";
-		}
-	}
-	?>
-	</select>
+<form action="submit_add_user_recent.php" method="post">
+ID: <?php echo $id;?><br>
+<input type="hidden" name="id" value="<?php echo $id;?>">
+Name: <input type="text" name="name" pattern="[^\s]*" required><br>
+User Group: <?php echo $user_group;?>
+<input type="hidden" name="user_group" value="<?php echo $user_group;?>">
 <br><br>
 Times allowed entry to Vancouver (note: time must always be in format HH:MM:SS using 24 hour time):
 <br><br>

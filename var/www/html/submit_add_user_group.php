@@ -16,8 +16,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
- 
-$user_group = $_POST['user_group'];
+
+$id = 'noentry';
+$name = $_POST['name']; 
+$user_group = $_POST['name'];
 $monday_s = $_POST['monday_s'];
 $monday_e = $_POST['monday_e'];
 $tuesday_s = $_POST['tuesday_s'];
@@ -33,14 +35,19 @@ $saturday_e = $_POST['saturday_e'];
 $sunday_s = $_POST['sunday_s'];
 $sunday_e = $_POST['sunday_e'];
 
-$sql = "UPDATE users SET monday_s='$monday_s', monday_e='$monday_e', tuesday_s='$tuesday_s', tuesday_e='$tuesday_e', wednesday_s='$wednesday_s', wednesday_e='$wednesday_e', thursday_s='$thursday_s', thursday_e='$thursday_e', friday_s='$friday_s', friday_e='$friday_e', saturday_s='$saturday_s', saturday_e='$saturday_e', sunday_s='$sunday_s', sunday_e='$sunday_e' WHERE user_group='$user_group'";
-
-if($conn->query($sql) === TRUE) {
-	echo "User group edited successfully";
+$sql = "SELECT * FROM users WHERE user_group='$user_group'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+        echo "Error: this user group already exists";
 } else {
-	echo "Error: " . $conn->error;
-}
+	$sql = "INSERT INTO users (id, name, user_group, monday_s, monday_e, tuesday_s, tuesday_e, wednesday_s, wednesday_e, thursday_s, thursday_e, friday_s, friday_e, saturday_s, saturday_e, sunday_s, sunday_e) VALUES ('$id', '$name', '$user_group', '$monday_s', '$monday_e', '$tuesday_s', '$tuesday_e', '$wednesday_s', '$wednesday_e', '$thursday_s', '$thursday_e', '$friday_s', '$friday_e', '$saturday_s', '$saturday_e', '$sunday_s', '$sunday_e')";
 
+	if($conn->query($sql) === TRUE) {
+		echo "User group added successfully";
+	} else {
+		echo "Error: " . $conn->error;
+	}
+}
 $conn->close();
 ?>
 

@@ -1,3 +1,10 @@
+<html>
+<body>
+
+<form action="index.php" method="get">
+<input type="submit" value="Return to homepage">
+</form>
+
 <?php
 $servername = "localhost";
 $username = "alex";
@@ -32,10 +39,13 @@ echo nl2br ("\n\n");
 
 if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
-		echo "Attempt by " . $row["name"]. " at " . $row["tdate"]. " " . $row["ttime"]. ", result: " . $row["door_unlocked"]. "<br><br>";
+		echo "Attempt by " . $row["name"]. " (" . $row["id"] . ") at " . $row["tdate"]. " " . $row["ttime"]. ", result: " . $row["door_unlocked"]. "<br><br>";
 	}
 } else {
 	echo "0 results";
 }
 $conn->close();
 ?>
+
+</body>
+</html>

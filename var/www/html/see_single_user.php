@@ -2,17 +2,15 @@
 <html>
 <body>
 
-Which user would you like to edit?
+Which user would you like to see settings for?
 
-<form action="edit_user_data.php" method="post">
+<form action="submit_see_single_user.php" method="post">
 User: <select name="name">
 	<?php
 	$servername = "localhost";
 	$username = "alex";
 	$password = "password";
-	$dbname = "door_db";
-	
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$dbname = "door_db";	$conn = new mysqli($servername, $username, $password, $dbname);
 	
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -27,7 +25,7 @@ User: <select name="name">
 	?>
 	</select>
 <br><br>
-<input type="submit" value="Edit user">
+<input type="submit" value="See settings for user">
 </form>
 
 </body>

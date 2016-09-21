@@ -2,9 +2,9 @@
 <html>
 <body>
 
-Which user would you like to edit?
+Which user would you like to delete?
 
-<form action="edit_user_data.php" method="post">
+<form action="submit_delete_user.php" method="post">
 User: <select name="name">
 	<?php
 	$servername = "localhost";
@@ -20,14 +20,14 @@ User: <select name="name">
 
 	$sql = mysqli_query($conn, "SELECT * FROM users");
 	while ($row = $sql->fetch_assoc()){
-		if($row['name'] != $row['user_group']) {
+		if($row['name'] != $row['user_group']){
 			echo "<option value=" . $row['name'] . ">" . $row['name'] . "</option>";
 		}
 	}
 	?>
 	</select>
 <br><br>
-<input type="submit" value="Edit user">
+<input type="submit" value="Delete user">
 </form>
 
 </body>
