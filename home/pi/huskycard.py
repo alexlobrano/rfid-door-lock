@@ -10,7 +10,7 @@ GPIO.setup(12,GPIO.OUT)
 GPIO.output(7,False)
 GPIO.output(12,True)
 
-# Setup for GPIO 22 CE and CE0 CSN for RPi B+ with SPI Speed @ 8Mhz
+# Setup for GPIO22 (GPIO_GEN3, pin 15) CE and GPIO08 (SPI_CE0_N, pin 24) CSN for RPi B+ with SPI Speed @ 8Mhz
 radio = RF24(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);
 pipes = [0xEEFDFDFDECAB,0xEEFDFDF0DFCD]
 max_payload_size = 4
@@ -112,7 +112,7 @@ while(True):
 				curs.execute(query, args)
 				time_s, time_e = curs.fetchone()
 				if(not time_s or not time_e):
-					print "Invalid time entries for this ID\nDoor locked"
+					print "Invalid time entries for this ID\nDoor locked\n"
 					GPIO.output(7,False)
 					GPIO.output(12,True)
 					insertAttempt(key, attempt_name, 3)
@@ -122,13 +122,11 @@ while(True):
 					current_time = datetime.datetime.now().time()
 					if(time_s < current_time < time_e):
 						print "Access allowed for user at this time\nDoor unlocked"
-						print "Non-resident access allowed at this time\nDoor unlocked"
 						GPIO.output(7,True)
 	                                	GPIO.output(12,False)
 						sendOpen(key, attempt_name, 'guest')
 					else:
-						print "Access not allowed for user at this time\nDock locked"
-						print "Non-resident access not allowed at this time\nDock locked"
+						print "Access not allowed for user at this time\nDock locked\n"
 						GPIO.output(7,False)
 	                               		GPIO.output(12,True)
 						insertAttempt(key, attempt_name, 2)
