@@ -1,16 +1,27 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <body>
+
+<?php
+if ($_SESSION["login"] != true) {
+	header('Location: /index.php');
+}
+
+$servername = "localhost";
+$username = $_SESSION["name"];
+$password = $_SESSION["password"];
+$dbname = "door_db";
+?>
 
 Which user group would you like to edit?
 
 <form action="edit_user_group_data.php" method="post">
 User: <select name="user_group">
 	<?php
-	$servername = "localhost";
-	$username = "alex";
-	$password = "password";
-	$dbname = "door_db";
 	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	
