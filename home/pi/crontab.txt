@@ -19,7 +19,10 @@
 #
 # For more information see the manual pages of crontab(5) and cron(8)
 #
+# can see what is in the real crontab using the command: crontab -l
+# can edit what is in the real crontab using the command: crontab -e
+#
 # m h  dom mon dow   command
-* * * * * /usr/local/bin/wifirebooter.sh >> /tmp/rebooteroutput.log 2>&1
+*/5 * * * * /usr/local/bin/wifirebooter.sh >> /tmp/rebooteroutput.log 2>&1
 * * * * * /usr/local/bin/huskylauncher.sh >> /tmp/cardoutput.log 2>&1
 

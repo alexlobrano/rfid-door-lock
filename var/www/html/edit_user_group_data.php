@@ -1,10 +1,19 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
 <html>
 <body>
 
 <?php
+if ($_SESSION["login"] != true) {
+	header('Location: /index.php');
+}
+
 $servername = "localhost";
-$username = "alex";
-$password = "password";
+$username = $_SESSION["name"];
+$password = $_SESSION["password"];
 $dbname = "door_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -67,59 +76,59 @@ $conn->close();
 Times allowed entry to Vancouver (note: enter as HH:MM:SS using 24 hour time):
 <br><br>
 
-Monday start time: <input type="text" name="monday_s" value="<?php echo $monday_s;?>"
+Monday start time: <input type="text" autocomplete="off" name="monday_s" value="<?php echo $monday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Monday end time: <input type="text" name="monday_e" value="<?php echo $monday_e;?>"
+Monday end time: <input type="text" autocomplete="off" name="monday_e" value="<?php echo $monday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Tuesday start time: <input type="text" name="tuesday_s" value="<?php echo $tuesday_s;?>"
+Tuesday start time: <input type="text" autocomplete="off" name="tuesday_s" value="<?php echo $tuesday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Tuesday end time: <input type="text" name="tuesday_e" value="<?php echo $tuesday_e;?>"
+Tuesday end time: <input type="text" autocomplete="off" name="tuesday_e" value="<?php echo $tuesday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Wednesday start time: <input type="text" name="wednesday_s" value="<?php echo $wednesday_s;?>"
+Wednesday start time: <input type="text" autocomplete="off" name="wednesday_s" value="<?php echo $wednesday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Wednesday end time: <input type="text" name="wednesday_e" value="<?php echo $wednesday_e;?>"
+Wednesday end time: <input type="text" autocomplete="off" name="wednesday_e" value="<?php echo $wednesday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Thursday start time: <input type="text" name="thursday_s" value="<?php echo $thursday_s;?>"
+Thursday start time: <input type="text" autocomplete="off" name="thursday_s" value="<?php echo $thursday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Thursday end time: <input type="text" name="thursday_e" value="<?php echo $thursday_e;?>"
+Thursday end time: <input type="text" autocomplete="off" name="thursday_e" value="<?php echo $thursday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Friday start time: <input type="text" name="friday_s" value="<?php echo $friday_s;?>"
+Friday start time: <input type="text" autocomplete="off" name="friday_s" value="<?php echo $friday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Friday end time: <input type="text" name="friday_e" value="<?php echo $friday_e;?>"
+Friday end time: <input type="text" autocomplete="off" name="friday_e" value="<?php echo $friday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Saturday start time: <input type="text" name="saturday_s" value="<?php echo $saturday_s;?>"
+Saturday start time: <input type="text" autocomplete="off" name="saturday_s" value="<?php echo $saturday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Saturday end time: <input type="text" name="saturday_e" value="<?php echo $saturday_e;?>"
+Saturday end time: <input type="text" autocomplete="off" name="saturday_e" value="<?php echo $saturday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 
-Sunday start time: <input type="text" name="sunday_s" value="<?php echo $sunday_s;?>"
+Sunday start time: <input type="text" autocomplete="off" name="sunday_s" value="<?php echo $sunday_s;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br>
 
-Sunday end time: <input type="text" name="sunday_e" value="<?php echo $sunday_e;?>"
+Sunday end time: <input type="text" autocomplete="off" name="sunday_e" value="<?php echo $sunday_e;?>"
 pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]">
 <br><br>
 

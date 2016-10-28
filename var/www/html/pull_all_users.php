@@ -1,15 +1,29 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
 <html>
 <body>
 
-<form action="index.php" method="get">
+<?php
+if ($_SESSION["login"] != true) {
+	header('Location: /index.php');
+}
+
+$servername = "localhost";
+$username = $_SESSION["name"];
+$password = $_SESSION["password"];
+$dbname = "door_db";
+?>
+
+<form action="main_menu.php" method="get">
 <input type="submit" value="Return to homepage">
 </form>
 
+<br>
+
 <?php
-$servername = "localhost";
-$username = "alex";
-$password = "password";
-$dbname = "door_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

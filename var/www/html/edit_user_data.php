@@ -1,10 +1,19 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
 <html>
 <body>
 
 <?php
+if ($_SESSION["login"] != true) {
+	header('Location: /index.php');
+}
+
 $servername = "localhost";
-$username = "alex";
-$password = "password";
+$username = $_SESSION["name"];
+$password = $_SESSION["password"];
 $dbname = "door_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -71,14 +80,10 @@ $conn->close();
 <form action="submit_edit_user.php" method="post">
 ID: <?php echo $id;?><br> 
 <input type="hidden" name="id" value="<?php echo $id;?>">
-Name: <input type="text" name="name" value="<?php echo $name;?>" pattern="[^\s]*" required><br>
+Name: <input type="text" autocomplete="off" name="name" value="<?php echo $name;?>" pattern="[^\s]*" required><br>
 User Group: 
 	<select name="user_group">
 	<?php
-	$servername = "localhost";
-	$username = "alex";
-	$password = "password";
-	$dbname = "door_db";
 	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	
@@ -104,85 +109,85 @@ Times allowed entry to Vancouver (note: time must always be in format HH:MM:SS u
 Monday start time: <?php if($user_group != "custom") {
 echo $monday_s;}
 else {
-echo "<input type='text' name='monday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='monday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Monday end time: <?php if($user_group != "custom") {
 echo $monday_e;}
 else {
-echo "<input type='text' name='monday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='monday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Tuesday start time: <?php if($user_group != "custom") {
 echo $tuesday_s;}
 else {
-echo "<input type='text' name='tuesday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='tuesday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Tuesday end time: <?php if($user_group != "custom") {
 echo $tuesday_e;}
 else {
-echo "<input type='text' name='tuesday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='tuesday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Wednesday start time: <?php if($user_group != "custom") {
 echo $wednesday_s;}
 else {
-echo "<input type='text' name='wednesday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='wednesday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Wednesday end time: <?php if($user_group != "custom") {
 echo $wednesday_e;}
 else {
-echo "<input type='text' name='wednesday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='wednesday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Thursday start time: <?php if($user_group != "custom") {
 echo $thursday_s;}
 else {
-echo "<input type='text' name='thursday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='thursday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Thursday end time: <?php if($user_group != "custom") {
 echo $thursday_e;}
 else {
-echo "<input type='text' name='thursday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='thursday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Friday start time: <?php if($user_group != "custom") {
 echo $friday_s;}
 else {
-echo "<input type='text' name='friday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='friday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Friday end time: <?php if($user_group != "custom") {
 echo $friday_e;}
 else {
-echo "<input type='text' name='friday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='friday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Saturday start time: <?php if($user_group != "custom") {
 echo $saturday_s;}
 else {
-echo "<input type='text' name='saturday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='saturday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Saturday end time: <?php if($user_group != "custom") {
 echo $saturday_e;}
 else {
-echo "<input type='text' name='saturday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='saturday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 Sunday start time: <?php if($user_group != "custom") {
 echo $sunday_s;}
 else {
-echo "<input type='text' name='sunday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='sunday_s' value='12:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br>
 
 Sunday end time: <?php if($user_group != "custom") {
 echo $sunday_e;}
 else {
-echo "<input type='text' name='sunday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
+echo "<input type='text' autocomplete='off' name='sunday_e' value='20:00:00' pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]' required>";}?>
 <br><br>
 
 <input type="submit" value="Submit user">
