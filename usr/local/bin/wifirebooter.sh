@@ -12,8 +12,8 @@ sudo ping -c2 ${SERVER} > /dev/null
 if [ $? != 0 ]
 then
 	#restart usb
-	echo "Problem with wifi. Rebooting now..."
+	echo "$(date) Disconnected from wifi. Attempting to reboot wifi USB adapter..."
 	sudo /home/pi/rebootwifi
 else
-	echo "Wifi is okay."
+	exit 1
 fi

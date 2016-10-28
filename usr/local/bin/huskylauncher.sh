@@ -6,8 +6,7 @@ export XAUTHORITY=~/.Xauthority
 
 if ps aux | awk '/huskycard/' | pgrep python > /dev/null
 then
-	echo "Program already running. Exiting..."
 	exit 1
 fi
-echo "Program not running. Launching..."
+echo "$(date) Program not running. Launching..."
 sudo /usr/bin/gnome-terminal -e "/home/pi/huskycard.py"
