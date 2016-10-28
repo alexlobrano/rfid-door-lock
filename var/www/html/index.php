@@ -14,7 +14,7 @@ Please enter username and password to make changes:
 <form action="main_menu.php" method="post">
 Username: <input type="text" autocomplete="off" name="name" pattern="[^\s]*" required>
 <br>
-Password: <input type="text" autocomplete="off" name="password" pattern="[^\s]*" required>
+Password: <input type="password" autocomplete="off" name="password" pattern="[^\s]*" required>
 <br><br>
 <input type="submit" value="Log in">
 </form>
