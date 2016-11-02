@@ -1,0 +1,6 @@
+#ignore irrelevant system files
+/*
+!/var/www/html
+!/usr/local/bin
+!/home/pi
+!/.gitignore
