@@ -1,0 +1,6 @@
+[submodule "libraries/rf24-arduino"]
+	path = libraries/rf24-arduino
+	url = https://github.com/TMRh20/RF24.git
+[submodule "home/pi/rf24-rpi"]
+	path = home/pi/rf24-rpi
+	url = https://github.com/TMRh20/RF24.git
