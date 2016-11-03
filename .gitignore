@@ -3,6 +3,4 @@
 !/var/www/html
 !/usr/local/bin
 !/home/pi
-!/libraries
-!/test_rf24
 !/.gitignore
